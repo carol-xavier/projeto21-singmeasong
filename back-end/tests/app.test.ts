@@ -43,3 +43,27 @@ describe("GET top 'X amount' of recommendations", () => {
     });
 });
 
+describe("GET specific recommendation by ID", () => {
+    it("Sending a valid ID, receive a specific recommendations. statusCode=200", async () => {
+        const {id} = await recommendationFactory.findId();
+        const promise = await supertest(app).get(`/recommendations/${id}`);
+        expect(promise.status).toBe(200);
+    });
+});
+
+describe("Upvote recommendation by ID", () => {
+    it("Sending a valid ID, this recommendation receives a vote. statusCode=200", async () => {
+        const {id} = await recommendationFactory.findId();
+        const promise = await supertest(app).post(`/recommendations/${id}/upvote`);
+        expect(promise.status).toBe(200);
+    });
+});
+
+describe("GET specific recommendation by ID", () => {
+    it("Sending a valid ID, this recommendation loses a vote. statusCode=200", async () => {
+        const {id} = await recommendationFactory.findId();
+        const promise = await supertest(app).post(`/recommendations/${id}/downvote`);
+        expect(promise.status).toBe(200);
+    });
+});
+

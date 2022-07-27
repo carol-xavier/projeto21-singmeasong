@@ -17,9 +17,18 @@ async function randomNumber() {
     return Math.floor(Math.random() * data.length);
 };
 
+async function findId() {
+    const iDs = await prisma.recommendation.findMany({
+        select: {id:true}
+    });
+    const id = iDs[Math.floor(Math.random()*iDs.length)];
+    return id;
+};
+
 const recommendationFactory = {
     createYoutubeLink,
-    randomNumber
+    randomNumber,
+    findId
 };
 
 export default recommendationFactory;
