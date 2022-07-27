@@ -6,6 +6,7 @@ import { wrongSchemaError } from "../utils/errorUtils.js";
 async function insert(req: Request, res: Response) {
   const validation = recommendationSchema.validate(req.body);
   if (validation.error) {
+    console.log("TESTESCHEMA", validation.error)
     throw wrongSchemaError();
   }
 
