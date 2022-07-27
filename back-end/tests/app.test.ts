@@ -20,10 +20,26 @@ describe("POST new recommendation", () => {
     });
 });
 
-describe("POST new recommendation", () => {
-    it("Given name and youtube link, new recommentatio is crated. statusCode=201", async () => {
+describe("GET the recommendations", () => {
+    it("Sending a GET request to /recommendatios, receive all data. statusCode=200", async () => {
         const promise = await supertest(app).get(`/recommendations`);
         expect(promise.status).toBe(200);
 
     });
 });
+
+describe("GET random recommendation", () => {
+    it("Sending a GET request to /recommendatios/random, receive a random recommendation. statusCode=200", async () => {
+        const promise = await supertest(app).get(`/recommendations/random`);
+        expect(promise.status).toBe(200);
+    });
+});
+
+describe("GET top 'X amount' of recommendations", () => {
+    it("Sending a GET request to /recommendatios/top/:amount, receive X top recommendations. statusCode=200", async () => {
+        const number = await recommendationFactory.randomNumber();
+        const promise = await supertest(app).get(`/recommendations/top/${number}`);
+        expect(promise.status).toBe(200);
+    });
+});
+

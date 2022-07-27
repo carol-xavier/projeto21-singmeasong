@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { prisma } from '../../src/database.js';
 import Randexp from 'randexp';
 
 const linkName = faker.word.noun();
@@ -11,8 +12,14 @@ function createYoutubeLink() {
     };
 };
 
+async function randomNumber() {
+    const data = await prisma.recommendation.findMany();
+    return Math.floor(Math.random() * data.length);
+};
+
 const recommendationFactory = {
-    createYoutubeLink
+    createYoutubeLink,
+    randomNumber
 };
 
 export default recommendationFactory;
